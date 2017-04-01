@@ -1,3 +1,4 @@
+// import various npm's
 var Twitter = require("twitter");
 var Spotify = require("spotify");
 var Request = require("request");
@@ -8,6 +9,7 @@ var keys = require("./keys");
 var command = process.argv[2];
 var input = process.argv[3];
 
+// determine which function to call
 if (command === "my-tweets") {
     twitter();
 } else if (command === "spotify-this-song") {
@@ -20,6 +22,7 @@ if (command === "my-tweets") {
     console.log("Please use a valid command line argument: my-tweets, spotify-this-song, movie-this, do-what-it-says")
 }
 
+// display last 20 tweets
 function twitter() {
     var client = new Twitter({
         consumer_key: keys.twitterKeys.consumer_key,
@@ -37,6 +40,7 @@ function twitter() {
     });
 }
 
+// display track information based on user input
 function spotify() {
     if (input) {
         Spotify.search({ type: 'track', query: input }, function(err, data) {
@@ -65,6 +69,7 @@ function spotify() {
     }
 }
 
+// display movie information based on user input
 function movies() {
     if (input) {
         Request('http://www.omdbapi.com/?t=' + input, function (error, response, body) {
@@ -90,11 +95,11 @@ function movies() {
             console.log("Plot: " + movieInfo.Plot);
             console.log("Actors: " + movieInfo.Actors);
             console.log("Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value);
-            console.log("Rotten TOmatoes URL: ");
         });
     }
 }
 
+// run commands based on text in random.txt
 function random() {
     fs.readFile('random.txt', 'utf-8',function(err, data) {
         console.log(data);
