@@ -48,4 +48,33 @@ if (command === "my-tweets") {
 			console.log("Album: " + data.tracks.items[0].album.name);
 		});
 	}
+} else if (command === "movie-this") {
+	var movie = process.argv[3];
+	if (movie) {
+        Request('http://www.omdbapi.com/?t=' + movie, function (error, response, body) {
+            var movieInfo = JSON.parse(body);
+            console.log("Title: " + movieInfo.Title);
+            console.log("Year: " + movieInfo.Year);
+            console.log("IMDB Rating: " + movieInfo.imdbRating);
+            console.log("Country of Origin: " + movieInfo.Country);
+            console.log("Language: " + movieInfo.Language);
+            console.log("Plot: " + movieInfo.Plot);
+            console.log("Actors: " + movieInfo.Actors);
+            console.log("Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value);
+            console.log("Rotten TOmatoes URL: ");
+        });
+    } else {
+        Request('http://www.omdbapi.com/?t=Mr.+Nobody', function (error, response, body) {
+            var movieInfo = JSON.parse(body);
+            console.log("Title: " + movieInfo.Title);
+            console.log("Year: " + movieInfo.Year);
+            console.log("IMDB Rating: " + movieInfo.imdbRating);
+            console.log("Country of Origin: " + movieInfo.Country);
+            console.log("Language: " + movieInfo.Language);
+            console.log("Plot: " + movieInfo.Plot);
+            console.log("Actors: " + movieInfo.Actors);
+            console.log("Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value);
+            console.log("Rotten TOmatoes URL: ");
+        });
+    }
 }
